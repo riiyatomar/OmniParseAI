@@ -1,0 +1,37 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+.gemini/
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Generated artifacts
+faiss_index/
+storage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Sample/test data (optional - uncomment if you don't want to track these)
+# *.pdf
+# *.csv
+# *.odt
