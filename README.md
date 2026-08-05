@@ -203,5 +203,6 @@ MIT License — see [LICENSE](LICENSE) for details.
 ---
 
 **Happy chatting with your documents! 📚✨**
-.\.venv\Scripts\python.exe -m 
+.venv\Scripts\python.exe -m 
 streamlit run app.py
+

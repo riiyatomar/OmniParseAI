@@ -8,6 +8,17 @@ Uses python-dotenv to load .env files automatically.
 import os
 import platform
 from functools import lru_cache
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+# ── Force-load .env BEFORE anything else reads os.environ ────────
+# override=True ensures .env values replace any stale system-level
+# environment variables (e.g. an old GOOGLE_API_KEY set globally).
+_env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+if _env_path.is_file():
+    load_dotenv(_env_path, override=True)
+
 from pydantic_settings import BaseSettings
 from pydantic import Field
 
@@ -21,7 +32,7 @@ class Settings(BaseSettings):
         description="Google Gemini API key (REQUIRED)",
     )
     gemini_model_name: str = Field(
-        default="gemini-2.5-flash",
+        default="gemini-3-flash-preview",
         description="Gemini model for chat completions",
     )
     gemini_embedding_model: str = Field(

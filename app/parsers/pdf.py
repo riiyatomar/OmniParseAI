@@ -29,10 +29,32 @@ class PdfParser(BaseParser):
     def parse(self, file_path: str) -> ParsedDocument:
         try:
             reader = PdfReader(file_path)
+        except ModuleNotFoundError as exc:
+            # PyCryptodome not installed — give a clear message
+            raise FileParsingError(
+                "PyCryptodome is required to open encrypted PDFs. "
+                "Install it with: pip install pycryptodome"
+            ) from exc
         except Exception as exc:
             raise FileParsingError(
                 f"Cannot open PDF: {exc}"
             ) from exc
+
+        # Handle encrypted/password-protected PDFs
+        if reader.is_encrypted:
+            try:
+                # Most "encrypted" PDFs use an empty password
+                if not reader.decrypt(""):
+                    raise FileParsingError(
+                        "This PDF is password-protected. "
+                        "Please provide an unprotected PDF."
+                    )
+            except FileParsingError:
+                raise
+            except Exception as exc:
+                raise FileParsingError(
+                    f"Failed to decrypt PDF: {exc}"
+                ) from exc
 
         pages_text: list[str] = []
         ocr_pages: list[int] = []
