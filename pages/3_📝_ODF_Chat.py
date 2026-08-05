@@ -53,18 +53,11 @@ st.header("📝 Chat with ODF Documents")
 
 # ── Sidebar ─────────────────────────────────────────────────────
 with st.sidebar:
-    st.subheader("🔑 API Key")
-    st.session_state.api_key = st.text_input(
-        "Google Gemini API Key",
-        value=st.session_state.api_key,
-        type="password",
-        key="odf_key_input",
-        label_visibility="collapsed",
-    )
-    st.caption(
-        "Get your key from [Google AI Studio]"
-        "(https://makersuite.google.com/app/apikey)"
-    )
+    # API key is loaded automatically from .env via init_api_key_state()
+    if st.session_state.api_key:
+        st.success("🔑 API Key loaded from .env", icon="✅")
+    else:
+        st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
 
     st.markdown("---")
 
@@ -123,7 +116,7 @@ if uploaded_odf is not None:
 
         if submitted and question:
             if not st.session_state.api_key:
-                st.warning("Please enter your API key in the sidebar.")
+                st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
             else:
                 with st.spinner("Thinking …"):
                     try:

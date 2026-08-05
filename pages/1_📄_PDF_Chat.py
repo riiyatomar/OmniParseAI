@@ -151,17 +151,11 @@ st.header("📄 Chat with Multiple PDFs")
 with st.sidebar:
     st.title("Menu")
 
-    st.subheader("🔑 Google Gemini API Key")
-    st.session_state.api_key = st.text_input(
-        "API Key",
-        value=st.session_state.api_key,
-        type="password",
-        label_visibility="collapsed",
-    )
-    st.caption(
-        "Get your key from [Google AI Studio]"
-        "(https://makersuite.google.com/app/apikey)"
-    )
+    # API key is loaded automatically from .env via init_api_key_state()
+    if st.session_state.api_key:
+        st.success("🔑 API Key loaded from .env", icon="✅")
+    else:
+        st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
 
     st.markdown("---")
 
@@ -170,12 +164,12 @@ with st.sidebar:
         "Upload your PDF files",
         accept_multiple_files=True,
         type=["pdf"],
-        label_visibility="collapsed",
+        label_visibility="visible",
     )
 
     if st.button("🔄 Submit & Process", use_container_width=True):
         if not st.session_state.api_key:
-            st.warning("Please enter your API key.")
+            st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
         elif not st.session_state.pdf_docs:
             st.warning("Please upload PDF files.")
         else:
@@ -284,7 +278,7 @@ if st.session_state.pdf_pages_text:
     with col_a:
         if st.button("📝 Generate Page Summary", use_container_width=True, key="gen_summary"):
             if not st.session_state.api_key:
-                st.warning("Please enter your API key in the sidebar.")
+                st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
             elif not page_text.strip():
                 st.warning("No text on this page to summarize.")
             else:
@@ -324,7 +318,7 @@ if st.session_state.pdf_pages_text:
 
         if page_submitted and page_question:
             if not st.session_state.api_key:
-                st.warning("Please enter your API key.")
+                st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
             else:
                 with st.spinner("Thinking …"):
                     try:
@@ -355,7 +349,7 @@ with st.form("question_form", clear_on_submit=True):
 
 if submitted and user_question:
     if not st.session_state.api_key:
-        st.warning("Please enter your Google Gemini API Key in the sidebar.")
+        st.warning("⚠️ No API key found. Add GOOGLE_API_KEY to your .env file.")
     elif st.session_state.vector_store is None:
         st.warning("Please upload and process PDF files first.")
     else:

@@ -13,7 +13,7 @@ import pandas as pd
 _COMMON_CSS = """\
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-html, body, [class*="st-"] { font-family: 'Inter', sans-serif; }
+html, body { font-family: 'Inter', sans-serif; }
 html { scroll-behavior: smooth; }
 
 /* Remove Streamlit default top padding */
@@ -49,6 +49,9 @@ html { scroll-behavior: smooth; }
 [data-testid="stSidebar"] > div:first-child {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+    overflow-x: hidden !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
 }
 [data-testid="stSidebar"] [data-testid="stMarkdown"],
 [data-testid="stSidebar"] label,
@@ -208,6 +211,16 @@ html { scroll-behavior: smooth; }
     border-color: #3b82f6 !important;
     background: linear-gradient(145deg, #dbeafe, #bfdbfe) !important;
 }
+[data-testid="stFileUploader"] button {
+    color: #1e293b !important; /* Forces dark text on the light button */ 
+}
+[data-testid="stFileUploader"] label,
+[data-testid="stFileUploader"] span,
+[data-testid="stFileUploader"] small {
+    color: #1e293b !important; /* Forces dark text for uploader labels and instructions */
+}
+
+
 
 /* MAIN CONTENT TEXT INPUT */
 .stTextInput > div > div {
@@ -311,11 +324,12 @@ html { scroll-behavior: smooth; }
     font-weight: 700 !important;
 }
 .stMarkdown p, .stMarkdown li, .stMarkdown span {
-    color: #1e293b !important;
+    color: #0f172a !important; /* Darker, high-contrast text */
 }
 .stCaption, .stMarkdown small {
-    color: #475569 !important;
+    color: #334155 !important; /* Darker slate gray for small text and captions */
 }
+
 [data-testid="stHeader"] h1,
 [data-testid="stHeader"] h2 {
     color: #0f172a !important;
@@ -350,6 +364,20 @@ label {
 }
 [data-testid="stMetric"] [data-testid="stMetricValue"] {
     color: #0f172a !important;
+}
+
+/* Sidebar text color overrides (restores white text visibility on dark sidebar background) */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] li,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] small,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] .stCaption {
+    color: #ffffff !important;
 }
 </style>
 """
@@ -400,6 +428,8 @@ _CHAT_CSS = """\
     font-size: 14px;
     line-height: 1.7;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 0;
 }
 
 .chat-message.user .message {

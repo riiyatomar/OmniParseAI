@@ -164,12 +164,12 @@ st.markdown(
     /* ── Feature cards ────────────────────────────────── */
     .card-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 1.2rem;
         padding: 0.5rem 0 1.5rem;
     }
-    @media (max-width: 900px) {
-        .card-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 600px) {
+        .card-grid { grid-template-columns: 1fr; }
     }
     .feature-card {
         border-radius: 18px;
@@ -178,6 +178,9 @@ st.markdown(
         position: relative;
         overflow: hidden;
         border: 1px solid transparent;
+        min-width: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     .feature-card:nth-child(1) {
         background: linear-gradient(145deg, #dbeafe, #bfdbfe);
@@ -228,12 +231,16 @@ st.markdown(
         font-size: 1.1rem;
         font-weight: 700;
         color: #1e293b;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     .feature-card p {
         margin: 0;
         font-size: 0.85rem;
         color: #475569;
         line-height: 1.55;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     .feature-card .tag {
         display: inline-block;
@@ -265,12 +272,12 @@ st.markdown(
     /* ── Steps section ─────────────────────────────────── */
     .steps-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 1rem;
         padding: 0.5rem 0 1rem;
     }
-    @media (max-width: 700px) {
-        .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 500px) {
+        .steps-grid { grid-template-columns: 1fr 1fr; }
     }
     .step-card {
         text-align: center;
@@ -280,6 +287,9 @@ st.markdown(
         border: 1px solid #dbeafe;
         position: relative;
         transition: all 0.2s ease;
+        min-width: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     .step-card:hover {
         border-color: #93c5fd;
@@ -303,12 +313,18 @@ st.markdown(
         font-size: 0.95rem;
         font-weight: 700;
         color: #1e293b;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     .step-card p {
         margin: 0;
         font-size: 0.8rem;
         color: #64748b;
         line-height: 1.45;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     /* ── Divider ───────────────────────────────────────── */
@@ -324,6 +340,7 @@ st.markdown(
         flex-wrap: wrap;
         gap: 0.5rem;
         justify-content: center;
+        align-items: center;
         padding: 0.5rem 0 1rem;
     }
     .tech-badge {
@@ -338,6 +355,7 @@ st.markdown(
         font-weight: 600;
         color: #475569;
         transition: all 0.25s ease;
+        white-space: nowrap;
     }
     .tech-badge:hover {
         border-color: #60a5fa;
@@ -438,8 +456,8 @@ st.markdown(
     <div class="steps-grid">
         <div class="step-card">
             <div class="step-num">1</div>
-            <h4>Get API Key</h4>
-            <p>Create a free key from Google AI Studio</p>
+            <h4>Set Up .env</h4>
+            <p>Add your Google Gemini API key to the .env file</p>
         </div>
         <div class="step-card">
             <div class="step-num">2</div>
